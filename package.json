@@ -1,11 +1,12 @@
 {
   "name": "tic-tac-toe-react",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Tic-Tac-Toe game for React",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "yarn jest",
-    "build": "tsc src/index.js"
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -121,6 +122,7 @@
     "semantic-ui-css": "^2.3.3",
     "semantic-ui-react": "^0.82.0",
     "serialize-javascript": "^1.4.0",
+    "tic-tac-toe-react": "^0.2.1",
     "ts-jest": "^23.0.0",
     "typeface-roboto": "^0.0.54"
   }
