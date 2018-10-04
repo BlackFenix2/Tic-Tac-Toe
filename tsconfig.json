@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "typescript-styled-plugin"
+      }
+    ],
+
+    //output package bundle to lib
+    "outDir": "./dist",
+
+    // compile JSX syntax to JS
+    "jsx": "react",
+
+    //tsconfig rule since tslint doesnt handle unused
+    "noUnusedLocals": true,
+
+    // target commonjs on deploy
+    "target": "esnext",
+    "module": "esnext",
+
+    // targets node
+    "moduleResolution": "node",
+
+    //make d.ts files
+    "declaration": true,
+
+    // force case-sensitive imports to avoid compile-time errors
+    "forceConsistentCasingInFileNames": true,
+
+    // allows default import of modules without default exports, shorthand for import * as item from 'module'
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    //Allow decorators
+    "experimentalDecorators": true,
+
+    // ALIAS  src path
+    "baseUrl": "./",
+    "paths": {
+      "src/*": ["src/*"]
+    }
+  }
+}
