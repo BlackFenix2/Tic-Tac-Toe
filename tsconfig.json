@@ -33,12 +33,6 @@
     "allowSyntheticDefaultImports": true,
 
     //Allow decorators
-    "experimentalDecorators": true,
-
-    // ALIAS  src path
-    "baseUrl": "./",
-    "paths": {
-      "src/*": ["src/*"]
-    }
+    "experimentalDecorators": true
   }
 }

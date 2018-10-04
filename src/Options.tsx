@@ -9,7 +9,7 @@ import {
   Segment,
   Select
 } from 'semantic-ui-react';
-import Card from 'src/Card';
+import Card from './Card';
 
 const options = [
   { key: '2', text: '2', value: 2 },

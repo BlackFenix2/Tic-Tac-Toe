@@ -7,7 +7,7 @@ import {
   Segment,
   Transition
 } from 'semantic-ui-react';
-import Card from 'src/Card';
+import Card from './Card';
 
 interface Props {
   clearScore: () => void;

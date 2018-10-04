@@ -1,4 +1,4 @@
-import { circle, cross, game } from 'src/lib/audio';
+import { circle, cross, game } from './lib/audio';
 
 let sounds: any = {};
 

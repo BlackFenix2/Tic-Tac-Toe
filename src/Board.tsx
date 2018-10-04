@@ -1,11 +1,11 @@
 import * as React from 'react';
-import styles from './Board.module.css';
+import './Board.module.css';
 
 const Board = props => (
-  <div className={styles.game}>
+  <div className="game">
     <div
       role="presentation"
-      className={styles.board}
+      className="board"
       onClick={props.clicked}
       onKeyUp={props.clicked}
     >
