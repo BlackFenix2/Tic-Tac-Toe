@@ -33,7 +33,7 @@ npm test
 
 ## Build
 
-Build production output for GitHub Pages into `docs/`:
+Build production output for GitHub Pages into `dist/`:
 
 ```bash
 npm run build
@@ -47,12 +47,12 @@ npm run build:local
 
 ## Deploy to GitHub Pages
 
-Preferred: use GitHub Actions deployment in `.github/workflows/deploy-pages.yml`.
+Preferred: use GitHub Actions deployment in `.github/workflows/static.yml`.
 
 1. In repository settings, set Pages source to `GitHub Actions`.
 2. Push to `main`.
 
-Manual fallback: build directly into `docs/` and commit the output.
+Manual fallback: build directly into `dist/` and publish it.
 
 ```bash
 npm run build
