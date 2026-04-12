@@ -64,3 +64,6 @@ jspm_packages/
 
 # custom
 dist
+playwright-report/
+test-results/
+docs

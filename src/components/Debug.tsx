@@ -1,11 +1,27 @@
 import * as React from 'react';
-import { Segment } from 'semantic-ui-react';
 import Card from './Card';
 
-const Debug = props => (
-  <Card className="w3-card w3-panel">
-    <Segment basic textAlign="center">
-      <p>Stats:</p>
+interface DebugProps {
+  numOfPlayers: number;
+  turn: string;
+  selectedBox: number | undefined;
+  diagPatternCheck: number;
+  acrossPatternCheck: number;
+  acrossSpecialCheck: number;
+  randomCheck: number;
+  totalMoves: number;
+  boxOrder: number[];
+  gameEnded: boolean;
+  winner: string | null | undefined;
+  gameLocked: boolean;
+  warGamesDelay: number;
+  [key: string]: unknown;
+}
+
+const Debug = (props: DebugProps) => (
+  <Card>
+    <div className="space-y-1 p-3 text-sm">
+      <p className="mb-2 text-lg font-semibold">Stats:</p>
       <p>Players: {props.numOfPlayers}</p>
       <p>Turn: {props.turn}</p>
       <p>Previous move: {String(props.selectedBox)}</p>
@@ -19,7 +35,7 @@ const Debug = props => (
       <p>Winner: {String(props.winner)}</p>
       <p>Locked: {String(props.gameLocked)}</p>
       <p>Delay: {String(props.warGamesDelay)}</p>
-    </Segment>
+    </div>
   </Card>
 );
 
