@@ -66,4 +66,3 @@ jspm_packages/
 dist
 playwright-report/
 test-results/
-docs

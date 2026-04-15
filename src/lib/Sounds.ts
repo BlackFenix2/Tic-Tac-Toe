@@ -1,6 +1,6 @@
-import { circle, cross, game } from './lib/audio';
+import { circle, cross, game } from "./audio";
 
-type SoundKey = 'gameSound' | 'crossSound' | 'circleSound';
+type SoundKey = "gameSound" | "crossSound" | "circleSound";
 type SoundMap = Partial<Record<SoundKey, HTMLAudioElement>>;
 
 let sounds: SoundMap = {};
@@ -10,18 +10,18 @@ try {
   sounds = {
     gameSound: new Audio(game),
     crossSound: new Audio(cross),
-    circleSound: new Audio(circle)
+    circleSound: new Audio(circle),
   };
 } catch {
   // caught untill client code.
 }
 
 const status: { muted: boolean } = {
-  muted: false
+  muted: false,
 };
 
 const forEachSound = (callback: (audio: HTMLAudioElement) => void) => {
-  Object.values(sounds).forEach(audio => {
+  Object.values(sounds).forEach((audio) => {
     if (audio) {
       callback(audio);
     }
@@ -36,7 +36,7 @@ const loadAndPlay = (soundKey: SoundKey) => {
 export const checkMute = () => status.muted;
 
 export const muteAll = () => {
-  forEachSound(audio => {
+  forEachSound((audio) => {
     audio.load();
     audio.muted = true;
   });
@@ -44,7 +44,7 @@ export const muteAll = () => {
 };
 
 export const unMuteAll = () => {
-  forEachSound(audio => {
+  forEachSound((audio) => {
     audio.load();
     audio.muted = false;
   });
@@ -61,13 +61,13 @@ export const toggleMute = () => {
 };
 
 export const playCircle = () => {
-  loadAndPlay('circleSound');
+  loadAndPlay("circleSound");
 };
 
 export const playCross = () => {
-  loadAndPlay('crossSound');
+  loadAndPlay("crossSound");
 };
 
 export const playGame = () => {
-  loadAndPlay('gameSound');
+  loadAndPlay("gameSound");
 };

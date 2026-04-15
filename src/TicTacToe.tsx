@@ -1,12 +1,12 @@
-import * as React from 'react';
-import Board from './components/Board';
-import Debug from './components/Debug';
-import Options from './components/Options';
-import ScoreCard from './components/ScoreCard';
-import { useAiTurn } from './hooks/useAiTurn';
-import { useGameState } from './hooks/useGameState';
-import { useSound } from './hooks/useSound';
-import Card from './components/Card';
+import * as React from "react";
+import Board from "./components/Board";
+import Debug from "./components/Debug";
+import Options from "./components/Options";
+import ScoreCard from "./components/ScoreCard";
+import { useAiTurn } from "./hooks/useAiTurn";
+import { useGameState } from "./hooks/useGameState";
+import { useSound } from "./hooks/useSound";
+import Card from "./components/Card";
 
 const TicTacToe = () => {
   const {
@@ -19,7 +19,7 @@ const TicTacToe = () => {
     setNumOfPlayers,
     setDelay,
     setWarGamesDelay,
-    bumpStrategyCounter
+    bumpStrategyCounter,
   } = useGameState();
   const { muted, toggleSound } = useSound();
   const { cpuTurn, playSelf, playSelfOnce } = useAiTurn({
@@ -28,7 +28,7 @@ const TicTacToe = () => {
     reset,
     setGameLocked,
     setWarGamesDelay,
-    bumpStrategyCounter
+    bumpStrategyCounter,
   });
 
   const boxClicked = React.useCallback(
@@ -40,13 +40,13 @@ const TicTacToe = () => {
         currentState.gameEnded ||
         currentState.gameLocked ||
         currentState.numOfPlayers === 0 ||
-        target.textContent !== ''
+        target.textContent !== ""
       ) {
         return;
       }
 
       const correctInput = await startTurn(
-        parseInt(target.dataset.square ?? '0', 10)
+        parseInt(target.dataset.square ?? "0", 10),
       );
       const afterMoveState = getState();
 
@@ -60,21 +60,21 @@ const TicTacToe = () => {
         setGameLocked(false);
       }
     },
-    [cpuTurn, getState, setGameLocked, startTurn]
+    [cpuTurn, getState, setGameLocked, startTurn],
   );
 
   const changePlayer = React.useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
       setNumOfPlayers(Number(e.target.value));
     },
-    [setNumOfPlayers]
+    [setNumOfPlayers],
   );
 
   const changeDelay = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setDelay(Number(e.target.value));
     },
-    [setDelay]
+    [setDelay],
   );
 
   return (
@@ -96,10 +96,15 @@ const TicTacToe = () => {
         <ScoreCard stats={state.stats} clearScore={clearScore} />
       </div>
       <div className="min-w-0">
-        <Card className="mx-auto w-full max-w-[560px]">
+        <Card className="mx-auto w-full max-w-140">
           <div className="p-3 text-center">
             <h2 className="mb-3 text-2xl font-semibold">Tic-Tac-Toe</h2>
-            <Board clicked={boxClicked} gameBoard={state.board} />
+            <Board
+              clicked={boxClicked}
+              gameBoard={state.board}
+              selectedBox={state.selectedBox}
+              winner={state.winner}
+            />
           </div>
         </Card>
       </div>

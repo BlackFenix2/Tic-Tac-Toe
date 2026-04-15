@@ -7,7 +7,7 @@ interface CardProps {
 
 const Card = ({ children, className = '' }: CardProps) => (
   <div
-    className={`border border-slate-300 bg-white p-3 shadow-sm ${className}`.trim()}
+    className={`rounded-3xl border border-slate-300/45 bg-slate-900/55 p-3 text-slate-100 shadow-[0_16px_28px_rgba(2,6,23,0.35)] backdrop-blur-md ${className}`.trim()}
   >
     {children}
   </div>

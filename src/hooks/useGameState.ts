@@ -1,16 +1,16 @@
-import { useCallback, useRef, useState } from 'react';
-import { playCircle, playCross, playGame } from '../Sounds';
+import { useCallback, useRef, useState } from "react";
+import { playCircle, playCross, playGame } from "../lib/Sounds";
 import {
   type LearnedGameRecord,
-  type StrategyCounterKey
-} from '../ai/strategies';
+  type StrategyCounterKey,
+} from "../ai/strategies";
 import {
   buildBoardFromMoveOrder,
   getWinner,
   type BoardState,
   type PlayerTurn,
-  type Winner
-} from '../lib/gameRules';
+  type Winner,
+} from "../lib/gameRules";
 
 export type { StrategyCounterKey };
 
@@ -40,8 +40,8 @@ export interface GameState {
 }
 
 const createInitialState = (): GameState => ({
-  turn: 'X',
-  board: Array(9).fill('') as BoardState,
+  turn: "X",
+  board: Array(9).fill("") as BoardState,
   totalMoves: 0,
   gameEnded: false,
   gameLocked: false,
@@ -57,7 +57,7 @@ const createInitialState = (): GameState => ({
   acrossSpecialCheck: 0,
   randomCheck: 0,
   machineLearning: false,
-  delay: 1000
+  delay: 1000,
 });
 
 type StatePatch =
@@ -70,10 +70,11 @@ export const useGameState = () => {
 
   const updateState = useCallback((patch: StatePatch) => {
     const previousState = stateRef.current;
-    const nextPatch = typeof patch === 'function' ? patch(previousState) : patch;
+    const nextPatch =
+      typeof patch === "function" ? patch(previousState) : patch;
     const nextState = {
       ...previousState,
-      ...nextPatch
+      ...nextPatch,
     };
 
     stateRef.current = nextState;
@@ -84,25 +85,34 @@ export const useGameState = () => {
 
   const scoreClicked = useCallback(
     (boardOrder: number[]) => {
+      const board = buildBoardFromMoveOrder(boardOrder);
+      const totalMoves = boardOrder.length;
+      const winner = getWinner(board, totalMoves);
+
       updateState({
-        board: buildBoardFromMoveOrder(boardOrder),
-        boxOrder: boardOrder
+        board,
+        totalMoves,
+        turn: totalMoves % 2 === 0 ? "X" : "O",
+        gameEnded: Boolean(winner),
+        winner,
+        selectedBox: undefined,
+        boxOrder: boardOrder,
       });
     },
-    [updateState]
+    [updateState],
   );
 
   const startTurn = useCallback(
     async (loc: number) => {
       const currentState = stateRef.current;
 
-      if (currentState.board[loc] !== '') {
+      if (currentState.board[loc] !== "") {
         throw new Error(
-          `Turn Error: Player ${currentState.turn} attempted to fill a non-empty slot: ${loc}`
+          `Turn Error: Player ${currentState.turn} attempted to fill a non-empty slot: ${loc}`,
         );
       }
 
-      if (currentState.turn === 'X') {
+      if (currentState.turn === "X") {
         playCross();
       } else {
         playCircle();
@@ -115,7 +125,7 @@ export const useGameState = () => {
       const nextWinner = getWinner(nextBoard, nextTotalMoves);
 
       updateState({
-        turn: currentState.turn === 'O' ? 'X' : 'O',
+        turn: currentState.turn === "O" ? "X" : "O",
         board: nextBoard,
         totalMoves: nextTotalMoves,
         selectedBox: loc,
@@ -129,38 +139,38 @@ export const useGameState = () => {
                 winner: nextWinner,
                 totalMoves: nextTotalMoves,
                 boxOrder: nextBoxOrder,
-                scoreClicked
-              }
+                scoreClicked,
+              },
             ]
-          : currentState.stats
+          : currentState.stats,
       });
 
       return true;
     },
-    [scoreClicked, updateState]
+    [scoreClicked, updateState],
   );
 
   const reset = useCallback(
     (delay?: number) => {
-      updateState(previousState => ({
-        turn: 'X',
-        board: Array(9).fill('') as BoardState,
+      updateState((previousState) => ({
+        turn: "X",
+        board: Array(9).fill("") as BoardState,
         totalMoves: 0,
         gameEnded: false,
         gameLocked: false,
         winner: undefined,
         warGamesDelay: delay ?? previousState.warGamesDelay,
         selectedBox: undefined,
-        boxOrder: []
+        boxOrder: [],
       }));
       playGame();
     },
-    [updateState]
+    [updateState],
   );
 
   const clearScore = useCallback(() => {
     updateState({
-      stats: []
+      stats: [],
     });
   }, [updateState]);
 
@@ -168,7 +178,7 @@ export const useGameState = () => {
     (gameLocked: boolean) => {
       updateState({ gameLocked });
     },
-    [updateState]
+    [updateState],
   );
 
   const setNumOfPlayers = useCallback(
@@ -176,35 +186,38 @@ export const useGameState = () => {
       reset();
       updateState({ numOfPlayers });
     },
-    [reset, updateState]
+    [reset, updateState],
   );
 
   const setDelay = useCallback(
     (delay: number) => {
       updateState({ delay });
     },
-    [updateState]
+    [updateState],
   );
 
   const setWarGamesDelay = useCallback(
     (warGamesDelay: number) => {
       updateState({ warGamesDelay });
     },
-    [updateState]
+    [updateState],
   );
 
   const bumpStrategyCounter = useCallback(
     (counterKey: StrategyCounterKey) => {
-      updateState(previousState => ({
-        [counterKey]: previousState[counterKey] + 1
-      } as Pick<GameState, StrategyCounterKey>));
+      updateState(
+        (previousState) =>
+          ({
+            [counterKey]: previousState[counterKey] + 1,
+          }) as Pick<GameState, StrategyCounterKey>,
+      );
     },
-    [updateState]
+    [updateState],
   );
 
   const toggleMachineLearning = useCallback(() => {
-    updateState(previousState => ({
-      machineLearning: !previousState.machineLearning
+    updateState((previousState) => ({
+      machineLearning: !previousState.machineLearning,
     }));
   }, [updateState]);
 
@@ -222,6 +235,6 @@ export const useGameState = () => {
     setDelay,
     setWarGamesDelay,
     bumpStrategyCounter,
-    toggleMachineLearning
+    toggleMachineLearning,
   };
 };

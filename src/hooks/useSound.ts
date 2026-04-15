@@ -1,5 +1,5 @@
-import { useCallback, useState } from 'react';
-import { checkMute, toggleMute } from '../Sounds';
+import { useCallback, useState } from "react";
+import { checkMute, toggleMute } from "../lib/Sounds";
 
 export const useSound = () => {
   const [muted, setMuted] = useState<boolean>(() => checkMute());
@@ -11,6 +11,6 @@ export const useSound = () => {
 
   return {
     muted,
-    toggleSound
+    toggleSound,
   };
 };

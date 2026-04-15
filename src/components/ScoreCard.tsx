@@ -59,17 +59,17 @@ class ScoreCard extends React.Component<Props, State> {
           <h2 className="text-2xl font-semibold">Score Card</h2>
           <button
             onClick={this.props.clearScore}
-            className="border border-slate-700 bg-slate-800 px-3 py-1 text-sm font-semibold text-white"
+            className="rounded-md border border-slate-300/70 bg-slate-800 px-3 py-1 text-sm font-semibold text-white transition hover:bg-slate-700"
           >
             CLEAR SCORE
           </button>
 
           <div className="flex flex-wrap justify-center gap-2">
             <button
-              className={`border px-3 py-1 text-sm ${
+              className={`rounded-md border px-3 py-1 text-sm font-semibold transition ${
                 this.state.active === 'Total Games'
-                  ? 'bg-slate-800 text-white'
-                  : 'bg-white'
+                  ? 'border-slate-200/80 bg-slate-800 text-white'
+                  : 'border-slate-300/75 bg-slate-100 text-slate-900 hover:bg-slate-200'
               }`}
               onClick={() =>
                 this.activeChange(null, { content: 'Total Games' })
@@ -78,30 +78,30 @@ class ScoreCard extends React.Component<Props, State> {
               TOTAL GAMES {stats.length || 0}
             </button>
             <button
-              className={`border px-3 py-1 text-sm ${
+              className={`rounded-md border px-3 py-1 text-sm font-semibold transition ${
                 this.state.active === 'Draws'
-                  ? 'bg-slate-800 text-white'
-                  : 'bg-white'
+                  ? 'border-slate-200/80 bg-slate-800 text-white'
+                  : 'border-slate-300/75 bg-slate-100 text-slate-900 hover:bg-slate-200'
               }`}
               onClick={() => this.activeChange(null, { content: 'Draws' })}
             >
               DRAWS {stats.filter(x => x.winner === 'draw').length || 0}
             </button>
             <button
-              className={`border px-3 py-1 text-sm ${
+              className={`rounded-md border px-3 py-1 text-sm font-semibold transition ${
                 this.state.active === 'X Wins'
-                  ? 'bg-slate-800 text-white'
-                  : 'bg-white'
+                  ? 'border-slate-200/80 bg-slate-800 text-white'
+                  : 'border-slate-300/75 bg-slate-100 text-slate-900 hover:bg-slate-200'
               }`}
               onClick={() => this.activeChange(null, { content: 'X Wins' })}
             >
               X WINS {stats.filter(x => x.winner === 'X').length || 0}
             </button>
             <button
-              className={`border px-3 py-1 text-sm ${
+              className={`rounded-md border px-3 py-1 text-sm font-semibold transition ${
                 this.state.active === 'O Wins'
-                  ? 'bg-slate-800 text-white'
-                  : 'bg-white'
+                  ? 'border-slate-200/80 bg-slate-800 text-white'
+                  : 'border-slate-300/75 bg-slate-100 text-slate-900 hover:bg-slate-200'
               }`}
               onClick={() => this.activeChange(null, { content: 'O Wins' })}
             >
@@ -112,7 +112,7 @@ class ScoreCard extends React.Component<Props, State> {
 
         <ul className="grid list-none gap-2 px-3 pb-3 pt-1">
           {activeList.map((item, index) => (
-            <li key={index}>
+            <li key={`${item.winner}-${item.totalMoves}-${item.boxOrder.join('-')}`}>
               <ScoreCardItem {...item} gameNumber={index + 1} />
             </li>
           ))}
@@ -121,7 +121,7 @@ class ScoreCard extends React.Component<Props, State> {
         <div className="p-3 text-center">
           <button
             onClick={this.props.clearScore}
-            className="border border-slate-700 bg-slate-800 px-3 py-1 text-sm font-semibold text-white"
+            className="rounded-md border border-slate-300/70 bg-slate-800 px-3 py-1 text-sm font-semibold text-white transition hover:bg-slate-700"
           >
             CLEAR SCORE
           </button>
@@ -140,15 +140,15 @@ interface ScoreCardItemProps {
 }
 
 const ScoreCardItem = (props: ScoreCardItemProps) => (
-  <div className="space-y-1 border border-slate-300 bg-slate-50 p-2 text-sm">
-    <div>Game: {props.gameNumber}</div>
-    <div>Total Moves: {props.totalMoves}</div>
-    <div>Board Order: {props.boxOrder}</div>
-    <div>Winner: {props.winner}</div>
+  <div className="space-y-1 rounded-lg border border-slate-300/90 bg-slate-50 p-2 text-sm text-slate-900 shadow-sm">
+    <div className="font-semibold">Game: {props.gameNumber}</div>
+    <div className="text-slate-800">Total Moves: {props.totalMoves}</div>
+    <div className="text-slate-800">Board Order: {props.boxOrder}</div>
+    <div className="font-semibold text-slate-900">Winner: {props.winner}</div>
     {props.scoreClicked && (
       <button
         onClick={() => props.scoreClicked?.(props.boxOrder)}
-        className="border border-slate-700 bg-slate-700 px-2 py-1 text-xs text-white"
+        className="rounded border border-slate-300/80 bg-slate-700 px-2 py-1 text-xs font-semibold text-white transition hover:bg-slate-600"
       >
         board
       </button>

@@ -100,7 +100,7 @@ export const useAiTurn = ({
     const state = getState();
 
     if (
-      confirm(
+      !confirm(
         `Warning: The computer will play itself for ${state.warGamesCount} games`
       )
     ) {

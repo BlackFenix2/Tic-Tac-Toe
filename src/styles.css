@@ -1,10 +1,146 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+:root {
+  --ttt-bg-0: #0f172a;
+  --ttt-bg-1: #111827;
+  --ttt-bg-2: #14233c;
+  --ttt-surface: rgba(15, 23, 42, 0.7);
+  --ttt-surface-soft: rgba(30, 41, 59, 0.42);
+  --ttt-edge: rgba(148, 163, 184, 0.45);
+  --ttt-text: #e2e8f0;
+  --ttt-mark-x: #67e8f9;
+  --ttt-mark-o: #f9a8d4;
+}
 
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f5f7fa;
-  color: #1f2937;
+  font-family: 'Space Grotesk', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background:
+    radial-gradient(circle at 15% 20%, #1d4ed8 0%, transparent 34%),
+    radial-gradient(circle at 85% 10%, #0ea5e9 0%, transparent 28%),
+    linear-gradient(145deg, var(--ttt-bg-0), var(--ttt-bg-1) 50%, var(--ttt-bg-2));
+  color: var(--ttt-text);
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.ttt-board-shell {
+  background:
+    linear-gradient(
+      160deg,
+      rgba(255, 255, 255, 0.18) 0%,
+      rgba(255, 255, 255, 0.06) 38%,
+      rgba(15, 23, 42, 0.3) 100%
+    ),
+    var(--ttt-surface);
+  border: 1px solid var(--ttt-edge);
+  box-shadow:
+    0 20px 36px rgba(2, 6, 23, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+  backdrop-filter: blur(7px);
+}
+
+.ttt-glass-cell {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.12), var(--ttt-surface-soft));
+  border: 1px solid rgba(148, 163, 184, 0.38);
+  box-shadow:
+    0 10px 18px rgba(15, 23, 42, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.ttt-glass-cell:hover {
+  animation: ttt-cell-pulse 320ms ease-out;
+}
+
+.ttt-tile-focus {
+  box-shadow:
+    0 0 0 1px rgba(103, 232, 249, 0.6),
+    0 8px 24px rgba(56, 189, 248, 0.25),
+    inset 0 0 18px rgba(103, 232, 249, 0.18);
+}
+
+.ttt-mark-svg {
+  width: min(58%, 92px);
+  height: min(58%, 92px);
+  overflow: visible;
+}
+
+.ttt-mark-stroke {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 9;
+}
+
+.ttt-mark-stroke-draw {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: ttt-mark-draw 320ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.ttt-mark-stroke-delay {
+  animation-delay: 110ms;
+}
+
+.ttt-mark-x .ttt-mark-stroke {
+  stroke: var(--ttt-mark-x);
+}
+
+.ttt-mark-o .ttt-mark-stroke {
+  stroke: var(--ttt-mark-o);
+}
+
+.ttt-win-line {
+  position: absolute;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #67e8f9, #f472b6);
+  box-shadow: 0 0 18px rgba(103, 232, 249, 0.7);
+  transform-origin: left center;
+  animation: ttt-win-reveal 460ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  z-index: 20;
+  pointer-events: none;
+}
+
+@keyframes ttt-mark-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes ttt-cell-pulse {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px) scale(1.015);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes ttt-win-reveal {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ttt-glass-cell:hover,
+  .ttt-mark-stroke-draw,
+  .ttt-win-line {
+    animation: none;
+  }
+
+  .ttt-glass-cell {
+    transition: none;
+  }
 }
