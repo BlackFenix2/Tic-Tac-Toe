@@ -8,21 +8,26 @@ If another instruction file exists (for example AGENTS.md or CLAUDE.md), treat t
 
 ## Project Context
 
-- This is a TypeScript React Tic-Tac-Toe project with a Vite demo app in demo/.
+- This is a TypeScript React Tic-Tac-Toe project built with Vite from the repository root.
 - Use npm for all package and script operations.
 - Do not introduce or rely on Yarn commands or Yarn lockfiles.
+- Treat package.json scripts as the source of truth for build, test, and verification commands.
 
 ## Build And Verify
 
-- Demo app install: npm run demo:install
-- Demo app dev: npm run demo:dev
-- Demo app build: npm run demo:build
-- Root package build remains legacy and may have older toolchain constraints.
+- Install dependencies: npm install
+- Start dev server: npm run dev
+- Production build: npm run build
+- Type check: npm run typecheck
+- Lint: npm run lint
+- Unit tests: npm run test:unit
+- Full test suite: npm run test
+- Playwright e2e: npm run test:e2e
 
 ## Change Guidelines
 
 - Prefer minimal, targeted edits over broad refactors.
-- Keep GitHub Pages behavior intact in demo/vite.config.ts (base path controlled by GITHUB_PAGES).
+- Keep GitHub Pages behavior intact in vite.config.mts.
 - Update README.md when command flows or setup behavior changes.
 
 ## Safety

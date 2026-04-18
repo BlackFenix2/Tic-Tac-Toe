@@ -1,6 +1,6 @@
-import { useCallback } from 'react';
-import { pickClassicMove, pickLearningMove } from '../ai/strategies';
-import type { GameState, StrategyCounterKey } from './useGameState';
+import { useCallback } from "react";
+import { pickClassicMove, pickLearningMove } from "../ai/strategies";
+import type { GameState, StrategyCounterKey } from "./useGameState";
 
 interface UseAiTurnOptions {
   getState: () => GameState;
@@ -11,7 +11,8 @@ interface UseAiTurnOptions {
   bumpStrategyCounter: (counterKey: StrategyCounterKey) => void;
 }
 
-const sleep = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, ms));
+const sleep = (ms: number) =>
+  new Promise<void>((resolve) => setTimeout(resolve, ms));
 
 export const useAiTurn = ({
   getState,
@@ -19,7 +20,7 @@ export const useAiTurn = ({
   reset,
   setGameLocked,
   setWarGamesDelay,
-  bumpStrategyCounter
+  bumpStrategyCounter,
 }: UseAiTurnOptions) => {
   const aiTurn = useCallback(
     async (players: number) => {
@@ -36,12 +37,12 @@ export const useAiTurn = ({
         state.board,
         state.turn,
         state.totalMoves,
-        state.stats
+        state.stats,
       );
 
       await startTurn(move);
     },
-    [getState, startTurn]
+    [getState, startTurn],
   );
 
   const oldCpuTurn = useCallback(
@@ -58,7 +59,7 @@ export const useAiTurn = ({
       const { move, counterKey } = pickClassicMove({
         board: state.board,
         totalMoves: state.totalMoves,
-        turn: state.turn
+        turn: state.turn,
       });
 
       await startTurn(move);
@@ -67,7 +68,7 @@ export const useAiTurn = ({
         bumpStrategyCounter(counterKey);
       }
     },
-    [bumpStrategyCounter, getState, startTurn]
+    [bumpStrategyCounter, getState, startTurn],
   );
 
   const cpuTurn = useCallback(
@@ -81,7 +82,7 @@ export const useAiTurn = ({
 
       await oldCpuTurn(players);
     },
-    [aiTurn, getState, oldCpuTurn]
+    [aiTurn, getState, oldCpuTurn],
   );
 
   const playSelfOnce = useCallback(async () => {
@@ -101,7 +102,7 @@ export const useAiTurn = ({
 
     if (
       !confirm(
-        `Warning: The computer will play itself for ${state.warGamesCount} games`
+        `Warning: The computer will play itself for ${state.warGamesCount} games`,
       )
     ) {
       return;
@@ -132,6 +133,6 @@ export const useAiTurn = ({
     oldCpuTurn,
     cpuTurn,
     playSelfOnce,
-    playSelf
+    playSelf,
   };
 };

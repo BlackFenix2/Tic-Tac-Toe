@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Card from './Card';
+import * as React from "react";
+import Card from "./Card";
 
 interface Props {
   clearScore: () => void;
@@ -14,28 +14,28 @@ interface Props {
 
 interface State {
   active: string;
-  filteredList: Props['stats'];
+  filteredList: Props["stats"];
 }
 
 class ScoreCard extends React.Component<Props, State> {
   // default active state
   public state = {
-    active: 'Total Games',
-    filteredList: this.props.stats
+    active: "Total Games",
+    filteredList: this.props.stats,
   };
 
-  public filterList = (stats: Props['stats'], content: string) => {
-    if (content === 'Total Games') {
+  public filterList = (stats: Props["stats"], content: string) => {
+    if (content === "Total Games") {
       return stats;
     }
-    if (content === 'Draws') {
-      return stats.filter(x => x.winner === 'draw');
+    if (content === "Draws") {
+      return stats.filter((x) => x.winner === "draw");
     }
-    if (content === 'X Wins') {
-      return stats.filter(x => x.winner === 'X');
+    if (content === "X Wins") {
+      return stats.filter((x) => x.winner === "X");
     }
-    if (content === 'O Wins') {
-      return stats.filter(x => x.winner === 'O');
+    if (content === "O Wins") {
+      return stats.filter((x) => x.winner === "O");
     }
     return stats;
   };
@@ -45,7 +45,7 @@ class ScoreCard extends React.Component<Props, State> {
     const list = this.filterList(stats, content);
     this.setState({
       active: content,
-      filteredList: list
+      filteredList: list,
     });
   };
 
@@ -67,52 +67,54 @@ class ScoreCard extends React.Component<Props, State> {
           <div className="flex flex-wrap justify-center gap-2">
             <button
               className={`rounded-md border px-3 py-1 text-sm font-semibold transition ${
-                this.state.active === 'Total Games'
-                  ? 'border-slate-200/80 bg-slate-800 text-white'
-                  : 'border-slate-300/75 bg-slate-100 text-slate-900 hover:bg-slate-200'
+                this.state.active === "Total Games"
+                  ? "border-slate-200/80 bg-slate-800 text-white"
+                  : "border-slate-300/75 bg-slate-100 text-slate-900 hover:bg-slate-200"
               }`}
               onClick={() =>
-                this.activeChange(null, { content: 'Total Games' })
+                this.activeChange(null, { content: "Total Games" })
               }
             >
               TOTAL GAMES {stats.length || 0}
             </button>
             <button
               className={`rounded-md border px-3 py-1 text-sm font-semibold transition ${
-                this.state.active === 'Draws'
-                  ? 'border-slate-200/80 bg-slate-800 text-white'
-                  : 'border-slate-300/75 bg-slate-100 text-slate-900 hover:bg-slate-200'
+                this.state.active === "Draws"
+                  ? "border-slate-200/80 bg-slate-800 text-white"
+                  : "border-slate-300/75 bg-slate-100 text-slate-900 hover:bg-slate-200"
               }`}
-              onClick={() => this.activeChange(null, { content: 'Draws' })}
+              onClick={() => this.activeChange(null, { content: "Draws" })}
             >
-              DRAWS {stats.filter(x => x.winner === 'draw').length || 0}
+              DRAWS {stats.filter((x) => x.winner === "draw").length || 0}
             </button>
             <button
               className={`rounded-md border px-3 py-1 text-sm font-semibold transition ${
-                this.state.active === 'X Wins'
-                  ? 'border-slate-200/80 bg-slate-800 text-white'
-                  : 'border-slate-300/75 bg-slate-100 text-slate-900 hover:bg-slate-200'
+                this.state.active === "X Wins"
+                  ? "border-slate-200/80 bg-slate-800 text-white"
+                  : "border-slate-300/75 bg-slate-100 text-slate-900 hover:bg-slate-200"
               }`}
-              onClick={() => this.activeChange(null, { content: 'X Wins' })}
+              onClick={() => this.activeChange(null, { content: "X Wins" })}
             >
-              X WINS {stats.filter(x => x.winner === 'X').length || 0}
+              X WINS {stats.filter((x) => x.winner === "X").length || 0}
             </button>
             <button
               className={`rounded-md border px-3 py-1 text-sm font-semibold transition ${
-                this.state.active === 'O Wins'
-                  ? 'border-slate-200/80 bg-slate-800 text-white'
-                  : 'border-slate-300/75 bg-slate-100 text-slate-900 hover:bg-slate-200'
+                this.state.active === "O Wins"
+                  ? "border-slate-200/80 bg-slate-800 text-white"
+                  : "border-slate-300/75 bg-slate-100 text-slate-900 hover:bg-slate-200"
               }`}
-              onClick={() => this.activeChange(null, { content: 'O Wins' })}
+              onClick={() => this.activeChange(null, { content: "O Wins" })}
             >
-              O WINS {stats.filter(x => x.winner === 'O').length || 0}
+              O WINS {stats.filter((x) => x.winner === "O").length || 0}
             </button>
           </div>
         </div>
 
         <ul className="grid list-none gap-2 px-3 pb-3 pt-1">
           {activeList.map((item, index) => (
-            <li key={`${item.winner}-${item.totalMoves}-${item.boxOrder.join('-')}`}>
+            <li
+              key={`${item.winner}-${item.totalMoves}-${item.boxOrder.join("-")}`}
+            >
               <ScoreCardItem {...item} gameNumber={index + 1} />
             </li>
           ))}

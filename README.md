@@ -39,12 +39,6 @@ Build production output for GitHub Pages into `dist/`:
 npm run build
 ```
 
-Build local output to `dist/`:
-
-```bash
-npm run build:local
-```
-
 ## Deploy to GitHub Pages
 
 Preferred: use GitHub Actions deployment in `.github/workflows/static.yml`.

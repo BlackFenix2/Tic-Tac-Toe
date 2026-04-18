@@ -22,16 +22,18 @@ const WIN_LINE_STYLE: Record<string, React.CSSProperties> = {
     left: "50%",
     width: "106%",
     height: "4px",
-    transform: "translate(-50%, -50%) rotate(45deg)",
-    transformOrigin: "center",
+    ["--ttt-win-line-transform" as string]:
+      "translate(-50%, -50%) rotate(45deg)",
+    ["--ttt-win-line-origin" as string]: "center",
   },
   "2-4-6": {
     top: "50%",
     left: "50%",
     width: "106%",
     height: "4px",
-    transform: "translate(-50%, -50%) rotate(-45deg)",
-    transformOrigin: "center",
+    ["--ttt-win-line-transform" as string]:
+      "translate(-50%, -50%) rotate(-45deg)",
+    ["--ttt-win-line-origin" as string]: "center",
   },
 };
 
@@ -108,20 +110,20 @@ const Board = (props: BoardProps) => {
     <div className="mx-auto w-full max-w-125">
       <div className="ttt-board-shell relative rounded-[28px] p-3 sm:p-4">
         <div className="grid aspect-square w-full grid-cols-3 grid-rows-3 gap-2 sm:gap-3">
-      {props.gameBoard.map((value: string, i: number) => (
-        <button
-          key={SQUARE_IDS[i]}
-          type="button"
-          data-square={i}
-          aria-label={`Square ${i + 1}${value ? ` ${value}` : " empty"}`}
-          onClick={props.clicked}
-          className={`ttt-glass-cell relative flex select-none items-center justify-center rounded-2xl transition duration-300 ease-out hover:-translate-y-0.5 hover:brightness-105 focus-visible:z-10 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-cyan-300 ${
-            props.selectedBox === i ? "ttt-tile-focus" : ""
-          }`}
-        >
-          <Mark value={value} animate={props.selectedBox === i} />
-        </button>
-      ))}
+          {props.gameBoard.map((value: string, i: number) => (
+            <button
+              key={SQUARE_IDS[i]}
+              type="button"
+              data-square={i}
+              aria-label={`Square ${i + 1}${value ? ` ${value}` : " empty"}`}
+              onClick={props.clicked}
+              className={`ttt-glass-cell relative flex select-none items-center justify-center rounded-2xl transition duration-300 ease-out hover:-translate-y-0.5 hover:brightness-105 focus-visible:z-10 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-cyan-300 ${
+                props.selectedBox === i ? "ttt-tile-focus" : ""
+              }`}
+            >
+              <Mark value={value} animate={props.selectedBox === i} />
+            </button>
+          ))}
         </div>
         {winningLineKey && (
           <div

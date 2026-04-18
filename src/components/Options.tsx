@@ -1,10 +1,10 @@
-import * as React from 'react';
-import Card from './Card';
+import * as React from "react";
+import Card from "./Card";
 
 const options = [
-  { key: '2', text: '2', value: 2 },
-  { key: '1', text: '1', value: 1 },
-  { key: '0', text: 'Zero', value: 0 }
+  { key: "2", text: "2", value: 2 },
+  { key: "1", text: "1", value: 1 },
+  { key: "0", text: "Zero", value: 0 },
 ];
 
 interface OptionsProps {
@@ -32,7 +32,7 @@ const Options = (props: OptionsProps) => (
           defaultValue={2}
           className="min-w-22 rounded-md border border-slate-500/70 bg-slate-800/80 px-2 py-1 text-slate-100"
         >
-          {options.map(option => (
+          {options.map((option) => (
             <option key={option.key} value={option.value}>
               {option.text}
             </option>
@@ -53,7 +53,9 @@ const Options = (props: OptionsProps) => (
           max={1000}
           className="min-w-35 flex-1"
         />
-        <span className="text-sm font-semibold text-slate-200">{props.delay}</span>
+        <span className="text-sm font-semibold text-slate-200">
+          {props.delay}
+        </span>
       </div>
       {props.playerCount === 0 && (
         <div className="flex flex-wrap gap-2">
@@ -79,7 +81,7 @@ const Options = (props: OptionsProps) => (
           checked={!props.muted}
           onChange={props.toggleSound}
         />
-        Sound {props.muted ? 'off' : 'on'}
+        Sound {props.muted ? "off" : "on"}
       </label>
     </div>
   </Card>
